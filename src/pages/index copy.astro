@@ -30,7 +30,7 @@ import Layout from '../layouts/Layout.astro';
 				<p>🎭 Tus personajes favoritos cobran vida</p>
 			</div>
 			<div class="service-card">
-				<i class="fas fa-chess-rook"></i>
+				<i class="fas fa-bounce"></i>
 				<h3>Juegos Inflables</h3>
 				<p>🏰 Castillos y saltarines para todas las edades</p>
 			</div>
@@ -45,7 +45,7 @@ import Layout from '../layouts/Layout.astro';
 				<p>💦 Diversión refrescante para todos</p>
 			</div>
 			<div class="service-card">
-				<i class="fas fa-trophy"></i>
+				<i class="fas fa-game-board"></i>
 				<h3>Juegos de Feria</h3>
 				<p>🎯 Premios y diversión garantizada</p>
 			</div>
@@ -89,7 +89,7 @@ import Layout from '../layouts/Layout.astro';
 				<div class="testimonial-card">
 					<p>"La mejor experiencia para el baby shower de mi bebé. Todo fue perfecto y los invitados quedaron encantados."</p>
 					<div class="testimonial-author">
-						<img src="/images/comentarios/3.jpg" alt="Cliente" />
+						<img src="/images/comentarios/1.jpg" alt="Cliente" />
 						<div>
 							<h4>María González</h4>
 							<p>Baby Shower</p>
@@ -99,50 +99,10 @@ import Layout from '../layouts/Layout.astro';
 				<div class="testimonial-card">
 					<p>"Increíble atención y profesionalismo. Los juegos inflables fueron un éxito total en la fiesta de mi hija."</p>
 					<div class="testimonial-author">
-						<img src="/images/comentarios/4.jpg" alt="Cliente" />
+						<img src="/images/comentarios/2.jpg" alt="Cliente" />
 						<div>
 							<h4>Carlos Rodríguez</h4>
 							<p>Fiesta Infantil</p>
-						</div>
-					</div>
-				</div>
-				<div class="testimonial-card">
-					<p>"La mejor organización para eventos infantiles. Los personajes animados hicieron que la fiesta fuera mágica."</p>
-					<div class="testimonial-author">
-						<img src="/images/comentarios/5.jpg" alt="Cliente" />
-						<div>
-							<h4>Ana Sánchez</h4>
-							<p>Fiesta Temática</p>
-						</div>
-					</div>
-				</div>
-				<div class="testimonial-card">
-					<p>"El cañón de espuma fue la sensación de nuestra fiesta de verano. ¡Todos los niños lo amaron!"</p>
-					<div class="testimonial-author">
-						<img src="/images/comentarios/6.jpg" alt="Cliente" />
-						<div>
-							<h4>Roberto López</h4>
-							<p>Fiesta de Verano</p>
-						</div>
-					</div>
-				</div>
-				<div class="testimonial-card">
-					<p>"Excelente servicio para nuestro evento corporativo. La máquina de snacks fue un éxito total."</p>
-					<div class="testimonial-author">
-						<img src="/images/comentarios/7.jpg" alt="Cliente" />
-						<div>
-							<h4>Patricia Gómez</h4>
-							<p>Evento Empresarial</p>
-						</div>
-					</div>
-				</div>
-				<div class="testimonial-card">
-					<p>"Los juegos de feria fueron el toque perfecto para nuestra fiesta. ¡Premios para todos!"</p>
-					<div class="testimonial-author">
-						<img src="/images/comentarios/8.jpg" alt="Cliente" />
-						<div>
-							<h4>Miguel Torres</h4>
-							<p>Fiesta de Comunidad</p>
 						</div>
 					</div>
 				</div>
@@ -281,15 +241,9 @@ import Layout from '../layouts/Layout.astro';
 
 	.testimonial-track {
 		display: flex;
+		animation: scroll 20s linear infinite;
 		gap: 2rem;
 		padding: 1rem;
-		cursor: grab;
-		user-select: none;
-		transform: translateX(0);
-	}
-
-	.testimonial-track:active {
-		cursor: grabbing;
 	}
 
 	.testimonial-card {
@@ -300,7 +254,6 @@ import Layout from '../layouts/Layout.astro';
 		box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 		transition: all 0.3s ease;
 		margin: 0;
-		pointer-events: auto;
 	}
 
 	.testimonial-card:hover {
@@ -315,6 +268,19 @@ import Layout from '../layouts/Layout.astro';
 	.testimonial-card:last-child {
 		border-radius: 0 10px 10px 0;
 		border-right: none;
+	}
+
+	@keyframes scroll {
+		0% {
+			transform: translateX(0);
+		}
+		100% {
+			transform: translateX(-100%);
+		}
+	}
+
+	.testimonial-track:hover {
+		animation-play-state: paused;
 	}
 
 	.testimonial-author {
@@ -478,52 +444,10 @@ import Layout from '../layouts/Layout.astro';
 		const track = document.querySelector('.testimonial-track');
 		const cards = document.querySelectorAll('.testimonial-card');
 		
-		// Clonamos todas las tarjetas para crear el efecto infinito en ambas direcciones
+		// Clonamos todas las tarjetas para crear el efecto infinito
 		cards.forEach(card => {
-			// Clonamos para la derecha
-			const cloneRight = card.cloneNode(true);
-			track.appendChild(cloneRight);
-			
-			// Clonamos para la izquierda
-			const cloneLeft = card.cloneNode(true);
-			track.insertBefore(cloneLeft, cards[0]);
+			const clone = card.cloneNode(true);
+			track.appendChild(clone);
 		});
-
-		let isDragging = false;
-		let startPosition = 0;
-		let currentTranslate = 0;
-		let prevTranslate = 0;
-
-		// Calculamos la posición inicial para empezar en la mitad
-		const cardWidth = 300 + 32; // Ancho de la tarjeta + gap
-		const initialPosition = -(cards.length * cardWidth);
-		track.style.transform = `translateX(${initialPosition}px)`;
-		currentTranslate = initialPosition;
-		prevTranslate = initialPosition;
-
-		// Agregamos los event listeners al track
-		track.addEventListener('mousedown', dragStart);
-		document.addEventListener('mousemove', drag);
-		document.addEventListener('mouseup', dragEnd);
-		document.addEventListener('mouseleave', dragEnd);
-
-		function dragStart(e) {
-			isDragging = true;
-			startPosition = e.clientX;
-		}
-
-		function drag(e) {
-			if (isDragging) {
-				const currentPosition = e.clientX;
-				const diff = currentPosition - startPosition;
-				currentTranslate = prevTranslate + diff;
-				track.style.transform = `translateX(${currentTranslate}px)`;
-			}
-		}
-
-		function dragEnd() {
-			isDragging = false;
-			prevTranslate = currentTranslate;
-		}
 	});
 </script>

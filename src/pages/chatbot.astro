@@ -1,0 +1,154 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout>
+	<section class="chat-container">
+		<div class="chat-header">
+			<h1>Asistente Virtual Mundo Recreativo</h1>
+			<p>¿En qué puedo ayudarte hoy?</p>
+		</div>
+		<div class="chat-messages" id="chat-messages">
+			<div class="message bot">
+				<p>¡Hola! Soy tu asistente virtual de Mundo Recreativo. ¿Cómo puedo ayudarte con tu evento?</p>
+			</div>
+		</div>
+		<div class="chat-input">
+			<input type="text" id="user-input" placeholder="Escribe tu mensaje aquí..." />
+			<button id="send-button">
+				<i class="fas fa-paper-plane"></i>
+			</button>
+		</div>
+	</section>
+</Layout>
+
+<style>
+	.chat-container {
+		max-width: 800px;
+		margin: 2rem auto;
+		padding: 2rem;
+		background-color: white;
+		border-radius: 10px;
+		box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	}
+
+	.chat-header {
+		text-align: center;
+		margin-bottom: 2rem;
+	}
+
+	.chat-header h1 {
+		color: var(--primary-color);
+		margin-bottom: 0.5rem;
+	}
+
+	.chat-messages {
+		height: 400px;
+		overflow-y: auto;
+		padding: 1rem;
+		background-color: var(--light-bg);
+		border-radius: 10px;
+		margin-bottom: 1rem;
+	}
+
+	.message {
+		margin-bottom: 1rem;
+		padding: 1rem;
+		border-radius: 10px;
+		max-width: 80%;
+	}
+
+	.message.bot {
+		background-color: var(--secondary-color);
+		color: white;
+		margin-right: auto;
+	}
+
+	.message.user {
+		background-color: var(--accent-color);
+		color: white;
+		margin-left: auto;
+	}
+
+	.chat-input {
+		display: flex;
+		gap: 1rem;
+	}
+
+	.chat-input input {
+		flex: 1;
+		padding: 1rem;
+		border: 1px solid #ddd;
+		border-radius: 5px;
+		font-size: 1rem;
+	}
+
+	.chat-input button {
+		padding: 1rem 2rem;
+		background-color: var(--primary-color);
+		color: white;
+		border: none;
+		border-radius: 5px;
+		cursor: pointer;
+		transition: background-color 0.3s;
+	}
+
+	.chat-input button:hover {
+		background-color: var(--secondary-color);
+	}
+
+	@media (max-width: 768px) {
+		.chat-container {
+			margin: 1rem;
+			padding: 1rem;
+		}
+
+		.chat-messages {
+			height: 300px;
+		}
+	}
+</style>
+
+<script>
+	const chatMessages = document.getElementById('chat-messages');
+	const userInput = document.getElementById('user-input');
+	const sendButton = document.getElementById('send-button');
+
+	async function sendMessage() {
+		const message = userInput.value.trim();
+		if (!message) return;
+
+		// Agregar mensaje del usuario
+		addMessage(message, 'user');
+		userInput.value = '';
+
+		try {
+			// Aquí iría la integración con Mistral
+			const response = await fetch('/api/chat', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({ message }),
+			});
+
+			const data = await response.json();
+			addMessage(data.response, 'bot');
+		} catch (error) {
+			addMessage('Lo siento, hubo un error al procesar tu mensaje. Por favor, intenta de nuevo.', 'bot');
+		}
+	}
+
+	function addMessage(text, sender) {
+		const messageDiv = document.createElement('div');
+		messageDiv.className = `message ${sender}`;
+		messageDiv.innerHTML = `<p>${text}</p>`;
+		chatMessages.appendChild(messageDiv);
+		chatMessages.scrollTop = chatMessages.scrollHeight;
+	}
+
+	sendButton.addEventListener('click', sendMessage);
+	userInput.addEventListener('keypress', (e) => {
+		if (e.key === 'Enter') sendMessage();
+	});
+</script> 
