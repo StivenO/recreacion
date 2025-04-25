@@ -1,0 +1,21 @@
+/* src/styles/aboutUs.css */
+
+.about-us-container {
+  padding: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.about-us-section {
+  margin-bottom: 2rem;
+}
+
+.about-us-section h2 {
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.about-us-section p {
+  line-height: 1.6;
+  color: #555;
+}

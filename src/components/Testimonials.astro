@@ -1,0 +1,147 @@
+---
+import styles from './testimonials.module.css';
+
+---
+
+<section class={styles.testimonials}>
+		<h2>Lo que dicen nuestros clientes</h2>
+		<div class={styles["testimonial-carousel"]}>
+			<div class={styles["testimonial-track"]}>
+				<div class={styles["testimonial-card"]}>
+					<p>"Mundo Recreativo hizo que la fiesta de mi hijo fuera inolvidable. Los niños se divirtieron muchísimo con los juegos inflables y los personajes animados."</p>
+					<div class={styles["testimonial-author"]}>
+						<img src="/images/comentarios/1.jpg" alt="Cliente" />
+						<div>
+							<h4>Laura Martínez</h4>
+							<p>Fiesta de Cumpleaños</p>
+						</div>
+					</div>
+				</div>
+				<div class={styles["testimonial-card"]}>
+					<p>"Excelente servicio y organización. El cañón de espuma fue el éxito de nuestra fiesta corporativa. ¡Mundo Recreativo superó nuestras expectativas!"</p>
+					<div class={styles["testimonial-author"]}>
+						<img src="/images/comentarios/2.jpg" alt="Cliente" />
+						<div>
+							<h4>Juan Pérez</h4>
+							<p>Evento Corporativo</p>
+						</div>
+					</div>
+				</div>
+				<div class={styles["testimonial-card"]}>
+					<p>"La mejor experiencia para el baby shower de mi bebé. Todo fue perfecto y los invitados quedaron encantados."</p>
+					<div class={styles["testimonial-author"]}>
+						<img src="/images/comentarios/3.jpg" alt="Cliente" />
+						<div>
+							<h4>María González</h4>
+							<p>Baby Shower</p>
+						</div>
+					</div>
+				</div>
+				<div class={styles["testimonial-card"]}>
+					<p>"Increíble atención y profesionalismo. Los juegos inflables fueron un éxito total en la fiesta de mi hija."</p>
+					<div class={styles["testimonial-author"]}>
+						<img src="/images/comentarios/4.jpg" alt="Cliente" />
+						<div>
+							<h4>Carlos Rodríguez</h4>
+							<p>Fiesta Infantil</p>
+						</div>
+					</div>
+				</div>
+				<div class={styles["testimonial-card"]}>
+					<p>"La mejor organización para eventos infantiles. Los personajes animados hicieron que la fiesta fuera mágica."</p>
+					<div class={styles["testimonial-author"]}>
+						<img src="/images/comentarios/5.jpg" alt="Cliente" />
+						<div>
+							<h4>Ana Sánchez</h4>
+							<p>Fiesta Temática</p>
+						</div>
+					</div>
+				</div>
+				<div class={styles["testimonial-card"]}>
+					<p>"El cañón de espuma fue la sensación de nuestra fiesta de verano. ¡Todos los niños lo amaron!"</p>
+					<div class={styles["testimonial-author"]}>
+						<img src="/images/comentarios/6.jpg" alt="Cliente" />
+						<div>
+							<h4>Roberto López</h4>
+							<p>Fiesta de Verano</p>
+						</div>
+					</div>
+				</div>
+				<div class={styles["testimonial-card"]}>
+					<p>"Excelente servicio para nuestro evento corporativo. La máquina de snacks fue un éxito total."</p>
+					<div class={styles["testimonial-author"]}>
+						<img src="/images/comentarios/7.jpg" alt="Cliente" />
+						<div>
+							<h4>Patricia Gómez</h4>
+							<p>Evento Empresarial</p>
+						</div>
+					</div>
+				</div>
+				<div class={styles["testimonial-card"]}>
+					<p>"Los juegos de feria fueron el toque perfecto para nuestra fiesta. ¡Premios para todos!"</p>
+					<div class={styles["testimonial-author"]}>
+						<img src="/images/comentarios/8.jpg" alt="Cliente" />
+						<div>
+							<h4>Miguel Torres</h4>
+							<p>Fiesta de Comunidad</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+<script>
+	document.addEventListener('DOMContentLoaded', function() {
+		const track = document.querySelector('.testimonial-track');
+		const cards = document.querySelectorAll('.testimonial-card');
+		
+		// Clonamos todas las tarjetas para crear el efecto infinito en ambas direcciones
+		cards.forEach(card => {
+			// Clonamos para la derecha
+			const cloneRight = card.cloneNode(true);
+			track.appendChild(cloneRight);
+			
+			// Clonamos para la izquierda
+			const cloneLeft = card.cloneNode(true);
+			track.insertBefore(cloneLeft, cards[0]);
+		});
+
+		let isDragging = false;
+		let startPosition = 0;
+		let currentTranslate = 0;
+		let prevTranslate = 0;
+
+		// Calculamos la posición inicial para empezar en la mitad
+		const cardWidth = 300 + 32; // Ancho de la tarjeta + gap
+		const initialPosition = -(cards.length * cardWidth);
+		track.style.transform = `translateX(${initialPosition}px)`;
+		currentTranslate = initialPosition;
+		prevTranslate = initialPosition;
+
+		// Agregamos los event listeners al track
+		track.addEventListener('mousedown', dragStart);
+		document.addEventListener('mousemove', drag);
+		document.addEventListener('mouseup', dragEnd);
+		document.addEventListener('mouseleave', dragEnd);
+
+		function dragStart(e) {
+			isDragging = true;
+			startPosition = e.clientX;
+		}
+
+		function drag(e) {
+			if (isDragging) {
+				const currentPosition = e.clientX;
+				const diff = currentPosition - startPosition;
+				currentTranslate = prevTranslate + diff;
+				track.style.transform = `translateX(${currentTranslate}px)`;
+			}
+		}
+
+		function dragEnd() {
+			isDragging = false;
+			prevTranslate = currentTranslate;
+		}
+	});
+</script>
