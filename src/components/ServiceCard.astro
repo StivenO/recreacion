@@ -1,0 +1,17 @@
+---
+interface ServiceCardProps {
+  title: string;
+  description: string;
+  icon: string;
+  emoji: string;
+}
+
+const { title, description, icon, emoji } = Astro.props as ServiceCardProps;
+import styles from './services.module.css';
+---
+
+<div class={styles["service-card"]}>
+  <i class={icon}></i>
+  <h3>{title}</h3>
+  <p>{emoji} {description}</p>
+</div>

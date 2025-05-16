@@ -1,14 +1,14 @@
 ---
 import styles from './testimonialCard.module.css';
 
-interface Props {
+interface TestimonialCardProps {
   text: string;
   author: string;
   event: string;
   image: string;
 }
 
-const { text, author, event, image } = Astro.props;
+const { text, author, event, image } = Astro.props as TestimonialCardProps;
 ---
 
 <div class={styles['testimonial-card']}>
