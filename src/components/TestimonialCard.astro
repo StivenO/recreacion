@@ -1,11 +1,13 @@
 ---
 import styles from './testimonialCard.module.css';
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
 
 interface Props {
   text: string;
   author: string;
   event: string;
-  image: string;
+  image: ImageMetadata;
 }
 
 const { text, author, event, image } = Astro.props;
@@ -16,7 +18,7 @@ const { text, author, event, image } = Astro.props;
     <p>{text}</p>
   </div>
   <div class={styles['testimonial-author']}>
-    <img src={image} alt={author} width="75" height="75" />
+    <Image src={image} alt={`Foto de ${author}`} width={75} height={75} />
     <div>
       <strong>{author}</strong>
       <p>{event}</p>
