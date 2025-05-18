@@ -1,9 +1,9 @@
 ---
 import TestimonialCard from './TestimonialCard.astro';
-import testimonialData from '../data/testimonials.json';
+import { testimonials } from '../data/testimonials';
 import styles from './testimonials.module.css';
 
-const { testimonials } = testimonialData;
+// Los testimonials ya están importados directamente
 ---
 
 <section class={styles.testimonials}>
