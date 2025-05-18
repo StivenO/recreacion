@@ -3,14 +3,14 @@ import styles from './testimonialCard.module.css';
 import { Image } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
 
-interface Props {
+interface TestimonialCardProps {
   text: string;
   author: string;
   event: string;
   image: ImageMetadata;
 }
 
-const { text, author, event, image } = Astro.props;
+const { text, author, event, image } = Astro.props as TestimonialCardProps;
 ---
 
 <div class={styles['testimonial-card']}>

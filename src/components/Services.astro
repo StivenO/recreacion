@@ -1,49 +1,21 @@
 ---
 import styles from './services.module.css';
+import ServiceCard from './ServiceCard.astro';
+import servicesData from '../data/services.json';
+
+const { services } = servicesData;
 ---
 
-<section class={styles.services}> 
-		<h2>Nuestros Servicios</h2>
-		<div class={styles["services-grid"]}>
-			<div class={styles["service-card"]}>
-				<i class="fas fa-child"></i>
-				<h3>Recreación Infantil</h3>
-				<p>👧🧒 Diversión garantizada para los más pequeños</p>
-			</div>
-			<div class={styles["service-card"]}>
-				<i class="fas fa-mask"></i>
-				<h3>Personajes Animados</h3>
-				<p>🎭 Tus personajes favoritos cobran vida</p>
-			</div>
-			<div class={styles["service-card"]}>
-				<i class="fas fa-chess-rook"></i>
-				<h3>Juegos Inflables</h3>
-				<p>🏰 Castillos y saltarines para todas las edades</p>
-			</div>
-			<div class={styles["service-card"]}>
-				<i class="fas fa-ice-cream"></i>
-				<h3>Máquinas de Snacks</h3>
-				<p>🍿🍧 Deliciosos snacks para todos</p>
-			</div>
-			<div class={styles["service-card"]}>
-				<i class="fas fa-spray-can"></i>
-				<h3>Cañón de Espuma</h3>
-				<p>💦 Diversión refrescante para todos</p>
-			</div>
-			<div class={styles["service-card"]}>
-				<i class="fas fa-trophy"></i>
-				<h3>Juegos de Feria</h3>
-				<p>🎯 Premios y diversión garantizada</p>
-			</div>
-			<div class={styles["service-card"]}>
-				<i class="fas fa-baby"></i>
-				<h3>Baby Showers</h3>
-				<p>👶 Celebra la llegada del bebé</p>
-			</div>
-			<div class={styles["service-card"]}>
-				<i class="fas fa-briefcase"></i>
-				<h3>Eventos Corporativos</h3>
-				<p>🧑‍💼 Fiestas para empresas y adultos</p>
-			</div>
-		</div>
-	</section> 
+<section class={styles.services}>
+	<h2>Nuestros Servicios</h2>
+	<div class={styles["services-grid"]}>
+		{services.map((service) => (
+			<ServiceCard
+				title={service.title}
+				description={service.description}
+				icon={service.icon}
+				emoji={service.emoji}
+			/>
+		))}
+	</div>
+</section>

@@ -1,0 +1,60 @@
+{
+  "services": [
+    {
+      "id": 1,
+      "title": "Recreación Infantil",
+      "description": "Diversión garantizada para los más pequeños",
+      "icon": "fas fa-child",
+      "emoji": "👧🧒"
+    },
+    {
+      "id": 2,
+      "title": "Personajes Animados",
+      "description": "Tus personajes favoritos cobran vida",
+      "icon": "fas fa-mask",
+      "emoji": "🎭"
+    },
+    {
+      "id": 3,
+      "title": "Juegos Inflables",
+      "description": "Castillos y saltarines para todas las edades",
+      "icon": "fas fa-chess-rook",
+      "emoji": "🏰"
+    },
+    {
+      "id": 4,
+      "title": "Máquinas de Snacks",
+      "description": "Deliciosos snacks para todos",
+      "icon": "fas fa-ice-cream",
+      "emoji": "🍿🍧"
+    },
+    {
+      "id": 5,
+      "title": "Cañón de Espuma",
+      "description": "Diversión refrescante para todos",
+      "icon": "fas fa-spray-can",
+      "emoji": "💦"
+    },
+    {
+      "id": 6,
+      "title": "Juegos de Feria",
+      "description": "Premios y diversión garantizada",
+      "icon": "fas fa-trophy",
+      "emoji": "🎯"
+    },
+    {
+      "id": 7,
+      "title": "Baby Showers",
+      "description": "Celebra la llegada del bebé",
+      "icon": "fas fa-baby",
+      "emoji": "👶"
+    },
+    {
+      "id": 8,
+      "title": "Eventos Corporativos",
+      "description": "Fiestas para empresas y adultos",
+      "icon": "fas fa-briefcase",
+      "emoji": "🧑‍💼"
+    }
+  ]
+}
